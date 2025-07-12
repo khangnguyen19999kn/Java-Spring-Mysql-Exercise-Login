@@ -5,6 +5,7 @@ import com.example.usercrud.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -17,7 +18,10 @@ public class UserService {
     public User save(User user) { return repository.save(user); }
     public void delete(Long id) { repository.deleteById(id); }
     public User findById(Long id) { return repository.findById(id).orElse(null); }
-    public String login (String email,String password) {
-        //Thêm code vô đây
+    public String login (String email, String password) {
+        return repository.findByEmail(email).map(user->{
+            if(password.equals(user.getPassword())) return "Ok";
+            else return "Sai password";
+        }).orElse("khong co user");
     }
 }

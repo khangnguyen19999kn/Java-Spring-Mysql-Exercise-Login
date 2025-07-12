@@ -2,6 +2,7 @@ package com.example.usercrud.controller;
 
 import com.example.usercrud.entity.User;
 import com.example.usercrud.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.usercrud.dto.LoginRequest;
 import java.util.List;
@@ -35,9 +36,11 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest){
         // //Thêm code ở đây
+        String result = service.login(loginRequest.getEmail(), loginRequest.getPassword());
+
         
         // return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Login không thành công, tài khoản hoặc mật khẩu sai")
         // //Hoặc
-        // return ResponseEntity.ok("Login thành công");
+         return ResponseEntity.ok(result);
     }
 }
